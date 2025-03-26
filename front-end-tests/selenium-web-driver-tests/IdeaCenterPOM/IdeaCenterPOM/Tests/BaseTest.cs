@@ -16,6 +16,8 @@ namespace IdeaCenterPOM.Tests
 		protected LoginPage _loginPage;
 		protected CreateIdeaPage _createIdeaPage;
 		protected MyIdeasPage _myIdeasPage;
+		protected EditIdeaPage _editIdeaPage;
+		protected ViewIdeaPage _viewIdeaPage;
 
 		[OneTimeSetUp]
 		public void OneTimeSetUp()
@@ -32,6 +34,8 @@ namespace IdeaCenterPOM.Tests
 			_homePage = new HomePage(_driver);
 			_myIdeasPage = new MyIdeasPage(_driver);
 			_createIdeaPage = new CreateIdeaPage(_driver);
+			_editIdeaPage = new EditIdeaPage(_driver);
+			_viewIdeaPage = new ViewIdeaPage(_driver);
 		}
 
 		[OneTimeTearDown]

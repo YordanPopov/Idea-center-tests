@@ -21,12 +21,27 @@ namespace IdeaCenterPOM.Pages
 
 		public IWebElement EditBtn => _driver.FindElement(By.XPath("//button[@type='submit']"));
 
+		public IWebElement MainErrorMsg => _driver.FindElement(By.XPath("//div[contains(@class, 'text-danger')]/ul/li"));
+
+		public IWebElement TitleErrorMsg => _driver.FindElement(By.XPath("//span[contains(@data-valmsg-for, 'Title')]"));
+
+		public IWebElement DescErrorMsg => _driver.FindElement(By.XPath("//span[contains(@data-valmsg-for, 'Description')]"));
+
 		public void EditIdea(string newTitle, string imgUrl, string newDescription)
 		{
-			if (TitleField.Text != newTitle)
+			string currentTitle = TitleField.GetAttribute("value");
+			string currentImgUrl = ImgField.GetAttribute("value");
+
+			if (currentTitle != newTitle)
 			{
 				TitleField.Clear();
 				TitleField.SendKeys(newTitle);
+			}
+
+			if (currentImgUrl != imgUrl)
+			{
+				ImgField.Clear();
+				ImgField.SendKeys(imgUrl);
 			}
 
 			if (DescField.Text != newDescription)
@@ -34,13 +49,6 @@ namespace IdeaCenterPOM.Pages
 				DescField.Clear();
 				DescField.SendKeys(newDescription);
 			}
-
-			if (ImgField.Text != imgUrl)
-			{
-				ImgField.Clear();
-				ImgField.SendKeys(imgUrl);
-			}
-
 			EditBtn.Click();
 		}
 	}

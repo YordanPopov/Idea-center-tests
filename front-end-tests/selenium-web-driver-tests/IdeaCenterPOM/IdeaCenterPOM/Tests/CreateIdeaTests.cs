@@ -11,7 +11,7 @@ namespace IdeaCenterPOM.Tests
 	public class CreateIdeaTests : BaseTest
 	{
 		[OneTimeSetUp]
-		public void CreateIdeaOneTimeSetUp()
+		public void CreateIdea_OneTimeSetUp()
 		{
 			_loginPage.OpenPage();
 			_loginPage.LoginUser("testUser_123@email.com", "test1234");
