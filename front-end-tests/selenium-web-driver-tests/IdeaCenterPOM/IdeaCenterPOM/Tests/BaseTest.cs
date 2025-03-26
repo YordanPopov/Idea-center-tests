@@ -44,5 +44,13 @@ namespace IdeaCenterPOM.Tests
 			_driver.Quit();
 			_driver.Dispose();
 		}
+
+		public string GenerateRandomString(int lenght)
+		{
+			var rnd = new Random();
+			const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+			return new string(Enumerable.Repeat(chars, lenght)
+				.Select(s => s[rnd.Next(s.Length)]).ToArray());
+		}
 	}
 }
