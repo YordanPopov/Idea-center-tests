@@ -17,6 +17,13 @@ namespace IdeaCenterPOM.Tests
 			_loginPage.LoginUser("testUser_123@email.com", "test1234");
 		}
 
+		[TearDown]
+
+		public void TearDown()
+		{
+			_myIdeasPage.DeleteButton.Click();
+		}
+
 		[Test]
 		public void Test_CreateIdeaWithEmptyFields()
 		{
@@ -35,7 +42,7 @@ namespace IdeaCenterPOM.Tests
 			var rnd = new Random();
 			int randomNum = rnd.Next(1000, 9999);
 			string ideaTitle = "testIdea_" + randomNum;
-			string ideaDesc = "testDescription_" + randomNum; 
+			string ideaDesc = "testDescription_" + randomNum;
 
 			_createIdeaPage.OpenPage();
 			_createIdeaPage.CreateIdea(ideaTitle, "", ideaDesc);
