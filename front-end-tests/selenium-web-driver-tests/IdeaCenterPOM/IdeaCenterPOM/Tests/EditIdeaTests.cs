@@ -40,7 +40,7 @@ namespace IdeaCenterPOM.Tests
 			Assert.That(_editIdeaPage.DescErrorMsg.Displayed, Is.True);
 			Assert.That(_editIdeaPage.DescErrorMsg.Text, Is.EqualTo("The Description field is required."));
 
-			_myIdeasPage.OpenPage();
+			_myIdeasPage.OpenPage(); 
 		}
 
 		[Test]

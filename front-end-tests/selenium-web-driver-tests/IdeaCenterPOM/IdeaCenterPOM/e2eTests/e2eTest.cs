@@ -36,7 +36,6 @@ namespace IdeaCenterPOM.e2eTests
 		[Test, Order(2)]
 		public void Test_CreateIdeaWithRandomData()
 		{
-			_createIdeaPage = new CreateIdeaPage(_driver);
 			_createIdeaPage.OpenPage();
 
 			string rndStr = GenerateRandomString(10);
@@ -51,7 +50,6 @@ namespace IdeaCenterPOM.e2eTests
 		[Test, Order(3)]
 		public void Test_ViewLastCreatedIdea()
 		{
-			_myIdeasPage = new MyIdeasPage(_driver);
 			_myIdeasPage.OpenPage();
 			_myIdeasPage.ViewButton.Click();
 
@@ -62,7 +60,6 @@ namespace IdeaCenterPOM.e2eTests
 		[Test, Order(4)]
 		public void Test_EditLastCreatedIdeaTitle()
 		{
-			_myIdeasPage = new MyIdeasPage(_driver);
 			_myIdeasPage.OpenPage();
 			_myIdeasPage.EditButton.Click();
 
@@ -71,7 +68,6 @@ namespace IdeaCenterPOM.e2eTests
 			_editIdeaPage.TitleField.SendKeys(editedTitle);
 			_editIdeaPage.EditBtn.Click();
 
-			_myIdeasPage = new MyIdeasPage(_driver);
 			_myIdeasPage.ViewButton.Click();
 
 			Assert.That(_viewIdeaPage.IdeaTitle.Text, Is.EqualTo(editedTitle));
@@ -83,7 +79,6 @@ namespace IdeaCenterPOM.e2eTests
 		[Test, Order(5)]
 		public void Test_EditLastCreatedIdeaDescription()
 		{
-			_myIdeasPage = new MyIdeasPage(_driver);
 			_myIdeasPage.OpenPage();
 			_myIdeasPage.EditButton.Click();
 
@@ -92,7 +87,6 @@ namespace IdeaCenterPOM.e2eTests
 			_editIdeaPage.DescField.SendKeys(editedDesc);
 			_editIdeaPage.EditBtn.Click();
 
-			_myIdeasPage = new MyIdeasPage(_driver);
 			_myIdeasPage.ViewButton.Click();
 
 			Assert.That(_viewIdeaPage.IdeaTitle.Text, Is.EqualTo(lastCreatedIdeaTitle));
@@ -104,10 +98,8 @@ namespace IdeaCenterPOM.e2eTests
 		[Test, Order(6)]
 		public void Test_DeleteLastCreatedIdeaTest()
 		{
-			_myIdeasPage = new MyIdeasPage(_driver);
 			_myIdeasPage.OpenPage();
 			_myIdeasPage.DeleteButton.Click();
-
 
 			Assert.That(_myIdeasPage.Ideas.Count, Is.EqualTo(0));
 		}
