@@ -7,9 +7,13 @@ using System.Threading.Tasks;
 
 namespace IdeaCenterPOM.Tests
 {
-	[TestFixture]
+	[TestFixture("chrome")]
+	[TestFixture("firefox")]
+	[TestFixture("edge")]
 	public class CreateIdeaTests : BaseTest
 	{
+		public CreateIdeaTests(string browserType) : base(browserType) { }
+
 		[OneTimeSetUp]
 		public void CreateIdea_OneTimeSetUp()
 		{
@@ -21,7 +25,12 @@ namespace IdeaCenterPOM.Tests
 
 		public void TearDown()
 		{
-			_myIdeasPage.DeleteButton.Click();
+			bool isIdeaExist = _myIdeasPage.Ideas.Any();
+			if (isIdeaExist)
+			{
+				_myIdeasPage.DeleteButton.Click();
+			}
+			
 		}
 
 		[Test]
@@ -34,6 +43,8 @@ namespace IdeaCenterPOM.Tests
 			Assert.That(_createIdeaPage.MainErrorMsg.Text, Does.Contain("Unable to create new Idea!"));
 			Assert.That(_createIdeaPage.TitleErrorMsg.Text, Does.Contain("The Title field is required."));
 			Assert.That(_createIdeaPage.DescErrorMsg.Text, Does.Contain("The Description field is required."));
+
+			_myIdeasPage.OpenPage();
 		}
 
 		[Test]

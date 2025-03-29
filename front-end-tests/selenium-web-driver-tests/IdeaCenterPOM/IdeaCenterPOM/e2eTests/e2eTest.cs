@@ -8,14 +8,18 @@ using System.Threading.Tasks;
 
 namespace IdeaCenterPOM.e2eTests
 {
-	[TestFixture]
+	[TestFixture("chrome")]
+	[TestFixture("firefox")]
+	[TestFixture("edge")]
 	public class e2eTest : BaseTest
 	{
 		private static string lastCreatedIdeaTitle;
 		private static string lastCreatedIdeaDescription;
 
+		public e2eTest(string browserType) : base(browserType) { }
+
 		[OneTimeSetUp]
-		public void OneTimeSetUp()
+		public void E2E_OneTimeSetUp()
 		{
 			_loginPage.OpenPage();
 			_loginPage.LoginUser("testUser_123@email.com", "test1234");
@@ -43,7 +47,7 @@ namespace IdeaCenterPOM.e2eTests
 			lastCreatedIdeaDescription = $"Description_{rndStr}";
 
 			_createIdeaPage.CreateIdea(lastCreatedIdeaTitle, "", lastCreatedIdeaDescription);
-			Assert.That(_driver.Url, Does.Contain("/Ideas/MyIdeas"));
+			Assert.That(_myIdeasPage.IsPageOpened(), Is.True);
 			Assert.That(_myIdeasPage.IdeaDescription.Text, Is.EqualTo(lastCreatedIdeaDescription));
 		}
 
@@ -63,7 +67,7 @@ namespace IdeaCenterPOM.e2eTests
 			_myIdeasPage.OpenPage();
 			_myIdeasPage.EditButton.Click();
 
-			string editedTitle = $"Changed Title: {lastCreatedIdeaTitle}";
+			string editedTitle = $"Changed: {lastCreatedIdeaTitle}";
 			_editIdeaPage.TitleField.Clear();
 			_editIdeaPage.TitleField.SendKeys(editedTitle);
 			_editIdeaPage.EditBtn.Click();
@@ -82,7 +86,7 @@ namespace IdeaCenterPOM.e2eTests
 			_myIdeasPage.OpenPage();
 			_myIdeasPage.EditButton.Click();
 
-			string editedDesc = $"Changed Description: {lastCreatedIdeaDescription}";
+			string editedDesc = $"Changed: {lastCreatedIdeaDescription}";
 			_editIdeaPage.DescField.Clear();
 			_editIdeaPage.DescField.SendKeys(editedDesc);
 			_editIdeaPage.EditBtn.Click();
@@ -99,9 +103,15 @@ namespace IdeaCenterPOM.e2eTests
 		public void Test_DeleteLastCreatedIdeaTest()
 		{
 			_myIdeasPage.OpenPage();
+			Assert.That(_myIdeasPage.Ideas.Count, Is.GreaterThan(0));
+
 			_myIdeasPage.DeleteButton.Click();
 
-			Assert.That(_myIdeasPage.Ideas.Count, Is.EqualTo(0));
+			_driver.Manage().Timeouts().ImplicitWait = TimeSpan.Zero;
+
+			bool isIdeaDeleted = _myIdeasPage.Ideas.All(idea => !idea.Text.Contains(lastCreatedIdeaDescription));
+			Assert.That(isIdeaDeleted, Is.True);
+			//Assert.That(_myIdeasPage.Ideas.Count, Is.EqualTo(0));
 		}
 	}
 }

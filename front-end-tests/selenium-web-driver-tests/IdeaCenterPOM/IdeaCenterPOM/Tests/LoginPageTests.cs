@@ -7,9 +7,13 @@ using System.Threading.Tasks;
 
 namespace IdeaCenterPOM.Tests
 {
-	[TestFixture]
+	[TestFixture("chrome")]
+	[TestFixture("firefox")]
+	[TestFixture("edge")]
 	public class LoginPageTests : BaseTest
 	{
+		public LoginPageTests(string browserType) : base(browserType) { }
+
 		[Test]
 		public void Test_LoginUserWithValidData()
 		{

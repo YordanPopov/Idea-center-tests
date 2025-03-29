@@ -7,8 +7,13 @@ using System.Threading.Tasks;
 
 namespace IdeaCenterPOM.Tests
 {
+	[TestFixture("chrome")]
+	[TestFixture("firefox")]
+	[TestFixture("edge")]
 	public class EditIdeaTests : BaseTest
 	{
+		public EditIdeaTests(string browserType) : base(browserType) { }
+
 		[OneTimeSetUp]
 		public void EditIdea_OneTimeSetUp()
 		{

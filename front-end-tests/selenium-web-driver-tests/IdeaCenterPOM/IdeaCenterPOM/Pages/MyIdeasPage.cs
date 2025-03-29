@@ -11,10 +11,9 @@ namespace IdeaCenterPOM.Pages
 {
 	public class MyIdeasPage : BasePage
 	{
-		WebDriverWait _wait;
 		public MyIdeasPage(IWebDriver driver) : base(driver)
 		{
-			_wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+			_wait = new WebDriverWait(driver, TimeSpan.FromSeconds(3));
 		}
 		public override string PageUrl => base.PageUrl + "/Ideas/MyIdeas";
 

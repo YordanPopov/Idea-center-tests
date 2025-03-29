@@ -1,9 +1,14 @@
 ﻿using IdeaCenterPOM.Pages;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Edge;
+using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Interactions;
+using OpenQA.Selenium.Remote;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,16 +23,19 @@ namespace IdeaCenterPOM.Tests
 		protected MyIdeasPage _myIdeasPage;
 		protected EditIdeaPage _editIdeaPage;
 		protected ViewIdeaPage _viewIdeaPage;
+		private string browserType;
+
+		public BaseTest(string browserType)
+		{
+			this.browserType = browserType;
+		}
 
 		[OneTimeSetUp]
-		public void OneTimeSetUp()
+		public void Base_OneTimeSetUp()
 		{
-			var chromeOptions = new ChromeOptions();
-			chromeOptions.AddUserProfilePreference("profile.password_manager_ebabled", false);
-			chromeOptions.AddArgument("--disable-search-engine-choice-screen");
-
-			_driver = new ChromeDriver(chromeOptions);
-			_driver.Manage().Window.Maximize();
+			var options = GetOptions(browserType);
+			
+			_driver = new RemoteWebDriver(new Uri("http://172.30.160.1:4444"), options);
 			_driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
 			_loginPage = new LoginPage(_driver);
@@ -41,16 +49,45 @@ namespace IdeaCenterPOM.Tests
 		[OneTimeTearDown]
 		public void OneTimeTearDown()
 		{
-			_driver.Quit();
+			_driver.Close();
 			_driver.Dispose();
 		}
-
-		public string GenerateRandomString(int lenght)
+		public string GenerateRandomString(int length)
 		{
 			var rnd = new Random();
 			const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-			return new string(Enumerable.Repeat(chars, lenght)
+			return new string(Enumerable.Repeat(chars, length)
 				.Select(s => s[rnd.Next(s.Length)]).ToArray());
+		}
+
+		private DriverOptions GetOptions(string browserType)
+		{
+			if (browserType == "chrome")
+			{
+				ChromeOptions chromeOptions = new ChromeOptions();
+				chromeOptions.AddUserProfilePreference("profile.password_manager_enabled", false);
+				chromeOptions.AddArgument("--disable-search-engine-choice-screen");
+				chromeOptions.AddArgument("--start-maximized");
+				chromeOptions.AddArgument("--disable-infobars");
+				chromeOptions.AddArgument("--disable-popup-blocking");
+				chromeOptions.AddArgument("--disable-gpu");
+
+				return chromeOptions;
+			} 
+			else if (browserType == "firefox")
+			{
+				FirefoxOptions firefoxOptions = new FirefoxOptions();
+				firefoxOptions.AddArgument("--kiosk");
+				
+				return firefoxOptions;
+			}
+			else
+			{
+				EdgeOptions edgeOptions = new EdgeOptions();
+				edgeOptions.AddArgument("--start-maximized");
+
+				return edgeOptions;
+			}
 		}
 	}
 }
