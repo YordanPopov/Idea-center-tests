@@ -23,6 +23,7 @@ namespace IdeaCenterPOM.Tests
 		protected MyIdeasPage _myIdeasPage;
 		protected EditIdeaPage _editIdeaPage;
 		protected ViewIdeaPage _viewIdeaPage;
+		protected EditProfilePage _editProfilePage;
 		private string browserType;
 
 		public BaseTest(string browserType)
@@ -34,8 +35,9 @@ namespace IdeaCenterPOM.Tests
 		public void Base_OneTimeSetUp()
 		{
 			var options = GetOptions(browserType);
-			
-			_driver = new RemoteWebDriver(new Uri("http://172.30.160.1:4444"), options);
+
+			//java -jar selenium-server-4.28.1.jar standalone
+			_driver = new RemoteWebDriver(new Uri("http://localhost:4444"), options);
 			_driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
 			_loginPage = new LoginPage(_driver);
@@ -44,6 +46,7 @@ namespace IdeaCenterPOM.Tests
 			_createIdeaPage = new CreateIdeaPage(_driver);
 			_editIdeaPage = new EditIdeaPage(_driver);
 			_viewIdeaPage = new ViewIdeaPage(_driver);
+			_editProfilePage = new EditProfilePage(_driver);
 		}
 
 		[OneTimeTearDown]
