@@ -25,7 +25,15 @@ namespace IdeaCenterPOM.Tests
 		[Test]
 		public void Test_EditProfileWithEmptyFields()
 		{
-			//To-Do
+			_editProfilePage.OpenPage();
+			Assert.That(_editProfilePage.IsPageOpened(), Is.True);
+
+			_editProfilePage.EditProfile("", "", "", "", "");
+			Assert.That(_myProfilePage.IsPageOpened(), Is.True);
+
+			Assert.That(_myProfilePage.UserName, Is.EqualTo("testUser_123"));
+			Assert.That(_myProfilePage.UserInfo, Is.Empty);
+			Assert.That(_myProfilePage.AboutSection, Is.Empty);
 		}
 
 		[Test]
