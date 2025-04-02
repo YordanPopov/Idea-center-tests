@@ -43,7 +43,8 @@ namespace IdeaCenterPOM.Pages
 			DescriptionField.Clear();
 			DescriptionField.SendKeys(desc);
 
-			DoneButton.Click();
+			IJavaScriptExecutor js = (IJavaScriptExecutor)_driver;
+			js.ExecuteScript("arguments[0].click();", DoneButton);
 		}
 	}
 }

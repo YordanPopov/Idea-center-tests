@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bogus;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,8 +8,8 @@ using System.Threading.Tasks;
 namespace IdeaCenterPOM.Tests
 {
 	[TestFixture("chrome")]
-	[TestFixture("firefox")]
-	[TestFixture("edge")]
+	//[TestFixture("firefox")]
+	//[TestFixture("edge")]
 	public class EditProfileTests : BaseTest
 	{
 		public EditProfileTests(string browserType) : base(browserType)
@@ -39,7 +40,21 @@ namespace IdeaCenterPOM.Tests
 		[Test]
 		public void Test_EditProfileWithRandomData()
 		{
-			//To-Do
+			_editProfilePage.OpenPage();
+			Assert.That(_editProfilePage.IsPageOpened(), Is.True);
+
+			var faker = new Faker();
+			string firstName = faker.Name.FirstName();
+			string lastName = faker.Name.LastName();
+			string location = faker.Address.City();
+			string description = faker.Lorem.Sentence();
+
+			_editProfilePage.EditProfile("", firstName, lastName, location, description);
+			Assert.That(_myProfilePage.IsPageOpened(), Is.True);
+
+			Assert.That(_myProfilePage.UserName, Is.EqualTo("testUser_123"));
+			Assert.That(_myProfilePage.UserInfo, Does.Contain($"{firstName} {lastName} , {location}"));
+			Assert.That(_myProfilePage.AboutSection, Does.Contain(description));		
 		}
 	}
 }

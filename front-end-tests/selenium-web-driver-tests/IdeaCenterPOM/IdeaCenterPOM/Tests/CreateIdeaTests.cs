@@ -50,10 +50,9 @@ namespace IdeaCenterPOM.Tests
 		[Test]
 		public void Test_CreateIdeaWithValidData()
 		{
-			var rnd = new Random();
-			int randomNum = rnd.Next(1000, 9999);
-			string ideaTitle = "testIdea_" + randomNum;
-			string ideaDesc = "testDescription_" + randomNum;
+			string randomStr = GenerateRandomString(4);
+			string ideaTitle = $"testIdea_{randomStr}";
+			string ideaDesc = $"testDescription_{randomStr}";
 
 			_createIdeaPage.OpenPage();
 			_createIdeaPage.CreateIdea(ideaTitle, "", ideaDesc);
