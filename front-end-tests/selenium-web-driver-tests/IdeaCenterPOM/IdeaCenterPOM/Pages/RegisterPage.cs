@@ -20,6 +20,12 @@ namespace IdeaCenterPOM.Pages
 		public IWebElement AcceptedAgreement => _driver.FindElement(By.Name("AcceptedAgreement"));
 		public IWebElement RegisterButton => _driver.FindElement(By.XPath("//button[@type='submit']"));
 		public IWebElement TermsOfServLink => _driver.FindElement(By.XPath("//a[contains(@href, '/Home/Terms')]"));
+		public string UserNameErrMsg => _driver.FindElement(By.XPath("//span[@data-valmsg-for='UserName']")).Text;
+		public string EmailErrMsg => _driver.FindElement(By.XPath("//span[@data-valmsg-for='Email']")).Text;
+		public string PasswordErrMsg => _driver.FindElement(By.XPath("//span[@data-valmsg-for='Password']")).Text;
+		public string RePasswordErrMsg => _driver.FindElement(By.XPath("//span[@data-valmsg-for='RePassword']")).Text;
+		public string AcceptedAgreementErrMsg => _driver.FindElement(By.XPath("//span[@data-valmsg-for='AcceptedAgreement']")).Text;
+
 
 		public void RegisterUser(string uName, string email, string pass, string rePass, bool isAccepted)
 		{

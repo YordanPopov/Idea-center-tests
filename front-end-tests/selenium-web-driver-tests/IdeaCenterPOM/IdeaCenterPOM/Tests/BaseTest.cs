@@ -25,6 +25,7 @@ namespace IdeaCenterPOM.Tests
 		protected ViewIdeaPage _viewIdeaPage;
 		protected EditProfilePage _editProfilePage;
 		protected MyProfilePage _myProfilePage;
+		protected RegisterPage _registerPage;
 		private string browserType;
 
 		public BaseTest(string browserType)
@@ -49,6 +50,7 @@ namespace IdeaCenterPOM.Tests
 			_viewIdeaPage = new ViewIdeaPage(_driver);
 			_editProfilePage = new EditProfilePage(_driver);
 			_myProfilePage = new MyProfilePage(_driver);
+			_registerPage = new RegisterPage(_driver);
 		}
 
 		[OneTimeTearDown]
