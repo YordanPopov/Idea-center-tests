@@ -24,6 +24,7 @@ namespace IdeaCenterPOM.Pages
 		public string EmailErrMsg => _driver.FindElement(By.XPath("//span[@data-valmsg-for='Email']")).Text;
 		public string PasswordErrMsg => _driver.FindElement(By.XPath("//span[@data-valmsg-for='Password']")).Text;
 		public string RePasswordErrMsg => _driver.FindElement(By.XPath("//span[@data-valmsg-for='RePassword']")).Text;
+		public string MainErrMsg => _driver.FindElement(By.XPath("//div[@class='text-danger validation-summary-errors']/ul/li")).Text;
 		public string AcceptedAgreementErrMsg => _driver.FindElement(By.XPath("//span[@data-valmsg-for='AcceptedAgreement']")).Text;
 
 

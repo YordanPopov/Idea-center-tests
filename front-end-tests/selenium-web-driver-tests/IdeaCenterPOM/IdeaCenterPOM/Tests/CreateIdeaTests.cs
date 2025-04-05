@@ -21,6 +21,12 @@ namespace IdeaCenterPOM.Tests
 			_loginPage.LoginUser("testUser_123@email.com", "test1234");
 		}
 
+		[SetUp]
+		public void CreateIdea_SetUp()
+		{
+			_createIdeaPage.OpenPage();
+		}
+
 		[TearDown]
 
 		public void TearDown()
@@ -36,7 +42,6 @@ namespace IdeaCenterPOM.Tests
 		[Test]
 		public void Test_CreateIdeaWithEmptyFields()
 		{
-			_createIdeaPage.OpenPage();
 			_createIdeaPage.CreateIdea("", "", "");
 
 			Assert.That(_createIdeaPage.IsPageOpened(), Is.True);
@@ -54,7 +59,6 @@ namespace IdeaCenterPOM.Tests
 			string ideaTitle = $"testIdea_{randomStr}";
 			string ideaDesc = $"testDescription_{randomStr}";
 
-			_createIdeaPage.OpenPage();
 			_createIdeaPage.CreateIdea(ideaTitle, "", ideaDesc);
 
 			Assert.That(_myIdeasPage.IsPageOpened(), Is.True);

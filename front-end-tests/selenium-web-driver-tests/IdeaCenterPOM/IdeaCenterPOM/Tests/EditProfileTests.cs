@@ -23,10 +23,15 @@ namespace IdeaCenterPOM.Tests
 			_loginPage.LoginUser("testUser_123@email.com", "test1234");
 		}
 
-		[Test]
-		public void Test_EditProfileWithEmptyFields()
+		[SetUp]
+		public void EditProfile_SetUp()
 		{
 			_editProfilePage.OpenPage();
+		}
+
+		[Test]
+		public void Test_EditProfileWithEmptyFields()
+		{		
 			Assert.That(_editProfilePage.IsPageOpened(), Is.True);
 
 			_editProfilePage.EditProfile("", "", "", "", "");
@@ -40,7 +45,6 @@ namespace IdeaCenterPOM.Tests
 		[Test]
 		public void Test_EditProfileWithRandomData()
 		{
-			_editProfilePage.OpenPage();
 			Assert.That(_editProfilePage.IsPageOpened(), Is.True);
 
 			var faker = new Faker();
