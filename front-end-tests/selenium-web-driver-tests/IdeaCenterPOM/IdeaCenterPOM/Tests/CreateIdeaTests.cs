@@ -35,8 +35,7 @@ namespace IdeaCenterPOM.Tests
 			if (isIdeaExist)
 			{
 				_myIdeasPage.DeleteButton.Click();
-			}
-			
+			}	
 		}
 
 		[Test]

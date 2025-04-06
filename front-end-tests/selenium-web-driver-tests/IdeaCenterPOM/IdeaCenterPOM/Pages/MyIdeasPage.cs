@@ -1,4 +1,4 @@
-﻿ using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
@@ -23,5 +23,7 @@ namespace IdeaCenterPOM.Pages
 		public IWebElement EditButton => Ideas.Last().FindElement(By.XPath(".//a[contains(@href, '/Edit')]"));
 		public IWebElement DeleteButton => Ideas.Last().FindElement(By.XPath(".//a[contains(@href, '/Delete')]"));
 		public IWebElement IdeaDescription => Ideas.Last().FindElement(By.XPath(".//p[@class='card-text']"));
+		public IWebElement SearchField => _driver.FindElement(By.Id("search-input"));
+		public IWebElement SearchButton => _driver.FindElement(By.Id("search-button"));
 	}
 }

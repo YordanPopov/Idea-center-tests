@@ -14,34 +14,44 @@ namespace IdeaCenterPOM.Pages
 		public override string PageUrl => base.PageUrl + "/Profile/Edit";
 
 		public IWebElement ProfilePictureField => _driver.FindElement(By.Name("ProfilePicture"));
-
 		public IWebElement FirstNameField => _driver.FindElement(By.Name("FirstName"));
-
 		public IWebElement LastNameField => _driver.FindElement(By.Name("LastName"));
-
 		public IWebElement CityField => _driver.FindElement(By.Name("City"));
-
 		public IWebElement DescriptionField => _driver.FindElement(By.Name("About"));
-
 		public IWebElement DoneButton => _driver.FindElement(By.XPath("//button[@type='submit']"));
 
 
 		public void EditProfile(string profilPic, string fName, string lName, string city, string desc)
 		{
-			ProfilePictureField.Clear();
-			ProfilePictureField.SendKeys(profilPic);
+			if (ProfilePictureField.GetAttribute("value") != profilPic)
+			{
+				ProfilePictureField.Clear();
+				ProfilePictureField.SendKeys(profilPic);
+			}
 
-			FirstNameField.Clear();
-			FirstNameField.SendKeys(fName);
+			if (FirstNameField.GetAttribute("value") != fName)
+			{
+				FirstNameField.Clear();
+				FirstNameField.SendKeys(fName);
+			}
 
-			LastNameField.Clear();
-			LastNameField.SendKeys(lName);
+			if (LastNameField.GetAttribute("value") != lName)
+			{
+				LastNameField.Clear();
+				LastNameField.SendKeys(lName);
+			}
 
-			CityField.Clear();
-			CityField.SendKeys(city);
+			if (CityField.GetAttribute("value") != city)
+			{
+				CityField.Clear();
+				CityField.SendKeys(city);
+			}
 
-			DescriptionField.Clear();
-			DescriptionField.SendKeys(desc);
+			if (DescriptionField.Text != desc)
+			{
+				DescriptionField.Clear();
+				DescriptionField.SendKeys(desc);
+			}
 
 			IJavaScriptExecutor js = (IJavaScriptExecutor)_driver;
 			js.ExecuteScript("arguments[0].click();", DoneButton);

@@ -12,7 +12,7 @@ namespace IdeaCenterPOM.Pages
 		public BasePage(IWebDriver driver)
 		{
 			this._driver = driver;
-			_wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+			this._wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
 		}
 
 		public virtual string PageUrl { get; set; } = "http://softuni-qa-loadbalancer-2137572849.eu-north-1.elb.amazonaws.com:83";
