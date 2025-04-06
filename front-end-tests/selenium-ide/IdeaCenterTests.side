@@ -938,6 +938,189 @@
       "targets": [],
       "value": ""
     }]
+  }, {
+    "id": "fd5a15f8-75d3-4321-b09a-ed2483441ad3",
+    "name": "Test_RegisterUserWithValidData",
+    "commands": [{
+      "id": "20d15213-0bd1-4f74-bea8-d31d68a72990",
+      "comment": "",
+      "command": "open",
+      "target": "/.",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "415a227a-0162-4c96-aff9-4d051d5907c5",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1920x1080",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "33f9bcf7-8399-43e6-8be5-e0e2a66443de",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//a[@class='btn btn-primary me-3' and @href='/Users/Register']",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "72901c85-9a5d-4989-8974-786bae7b4542",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return Math.floor(Math.random() * 1000)",
+      "targets": [],
+      "value": "rndNum"
+    }, {
+      "id": "ec1a6dd9-9f65-47ab-94fc-1c92128912d7",
+      "comment": "",
+      "command": "type",
+      "target": "xpath=//input[@name='UserName']",
+      "targets": [],
+      "value": "testUser_${rndNum}"
+    }, {
+      "id": "e89bf5c8-1a6d-45de-9ac5-ebbc80343424",
+      "comment": "",
+      "command": "type",
+      "target": "xpath=//input[@name='Email']",
+      "targets": [],
+      "value": "testUser_${rndNum}@email.com"
+    }, {
+      "id": "38e5072d-4930-4fb3-81a4-f8f9d35e40b1",
+      "comment": "",
+      "command": "type",
+      "target": "xpath=//input[@name='Password']",
+      "targets": [],
+      "value": "test1234"
+    }, {
+      "id": "ba425015-55fc-4e9e-bb81-bd14ab48ca64",
+      "comment": "",
+      "command": "type",
+      "target": "xpath=//input[@name='RePassword']",
+      "targets": [],
+      "value": "test1234"
+    }, {
+      "id": "c5b3a568-b9db-4f1d-98ad-7fb7699f1a1a",
+      "comment": "",
+      "command": "check",
+      "target": "xpath=//input[@type='checkbox' and @name='AcceptedAgreement']",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6bb96422-a834-40df-9801-f98bb8d1d35c",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//button[@type='submit']",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "726c5d79-1968-4587-98eb-0e42ba9b5712",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "xpath=//a[@class='btn btn-primary me-3']",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d0ff8206-dd8d-4249-86f2-13cc56a51223",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//a[@class='btn btn-primary me-3']",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "fb8e892a-f13c-40f9-b344-b9de95ff4119",
+      "comment": "",
+      "command": "executeScript",
+      "target": "window.sessionStorage.clear(); window.localStorage.clear();",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "91af2187-c9d9-4e1d-a5d3-694b4a10e008",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "1c165310-ad88-4276-9f86-aaaa81018a54",
+    "name": "Test_RegisterUserWithEmptyFIelds",
+    "commands": [{
+      "id": "9c2afda2-822f-4c46-b8b9-20e6532d558e",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "71319669-f51e-48ed-b640-993ad2839b24",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1920x1080",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "070b2cd3-0cd8-4805-81df-3ef64dd06346",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//a[@type='button']",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a7717a26-ffeb-43b0-afad-08a4747a74ba",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//button[@type='submit']",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a369bb85-65e9-42fd-975c-e86d157972fe",
+      "comment": "",
+      "command": "verifyText",
+      "target": "xpath=//span[@data-valmsg-for='UserName']",
+      "targets": [],
+      "value": "User name is required!"
+    }, {
+      "id": "d84f27dd-4b7c-4dc1-9523-c047b84dab76",
+      "comment": "",
+      "command": "verifyText",
+      "target": "xpath=//span[@data-valmsg-for='Email']",
+      "targets": [],
+      "value": "The e-mail is required!"
+    }, {
+      "id": "9aebcd06-fa0b-4aed-9dac-1b283774373a",
+      "comment": "",
+      "command": "verifyText",
+      "target": "xpath=//span[@data-valmsg-for='Password']",
+      "targets": [],
+      "value": "The password is required!"
+    }, {
+      "id": "f0e59934-ea65-4f02-b1f5-d3942b59c401",
+      "comment": "",
+      "command": "verifyText",
+      "target": "xpath=//span[@data-valmsg-for='RePassword']",
+      "targets": [],
+      "value": "The repeat password is required!"
+    }, {
+      "id": "5c6e8050-acae-43a5-b6a4-aad4824b8f1d",
+      "comment": "",
+      "command": "verifyText",
+      "target": "xpath=//span[@data-valmsg-for='AcceptedAgreement']",
+      "targets": [],
+      "value": "You must accept the terms."
+    }, {
+      "id": "1df4dc35-7e30-4973-8d3d-651cc35b3df1",
+      "comment": "",
+      "command": "executeScript",
+      "target": "window.sessionStorage.clear(); window.localStorage.clear();",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f9246694-8116-43f3-9965-441bba951222",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
   }],
   "suites": [{
     "id": "c9796639-2a14-48f1-8460-332e40254f4b",
