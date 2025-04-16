@@ -12,7 +12,10 @@ namespace IdeaCenterPOM.Tests
 	[TestFixture("edge")]
 	public class CreateIdeaTests : BaseTest
 	{
-		public CreateIdeaTests(string browserType) : base(browserType) { }
+		public CreateIdeaTests(string browserType) : base(browserType)
+		{
+
+		}
 
 		[OneTimeSetUp]
 		public void CreateIdea_OneTimeSetUp()
@@ -31,11 +34,8 @@ namespace IdeaCenterPOM.Tests
 
 		public void TearDown()
 		{
-			bool isIdeaExist = _myIdeasPage.Ideas.Any();
-			if (isIdeaExist)
-			{
+			if (_myIdeasPage.Ideas.Any())
 				_myIdeasPage.DeleteButton.Click();
-			}	
 		}
 
 		[Test]
@@ -47,20 +47,17 @@ namespace IdeaCenterPOM.Tests
 			Assert.That(_createIdeaPage.MainErrorMsg.Text, Does.Contain("Unable to create new Idea!"));
 			Assert.That(_createIdeaPage.TitleErrorMsg.Text, Does.Contain("The Title field is required."));
 			Assert.That(_createIdeaPage.DescErrorMsg.Text, Does.Contain("The Description field is required."));
-
-			_myIdeasPage.OpenPage();
 		}
 
 		[Test]
 		public void Test_CreateIdeaWithValidData()
 		{
-			string randomStr = GenerateRandomString(4);
-			string ideaTitle = $"testIdea_{randomStr}";
-			string ideaDesc = $"testDescription_{randomStr}";
+			string ideaTitle = $"TITLE_{GenerateRandomString(5)}";
+			string ideaDesc = $"DESCRIPTION_{GenerateRandomString(5)}";
 
 			_createIdeaPage.CreateIdea(ideaTitle, "", ideaDesc);
 
-			Assert.That(_myIdeasPage.IsPageOpened(), Is.True);
+			Assert.IsTrue(_myIdeasPage.IsPageOpened());
 			Assert.That(_myIdeasPage.IdeaDescription.Text.Trim(), Is.EqualTo(ideaDesc));
 		}
 	}

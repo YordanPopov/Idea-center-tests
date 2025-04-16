@@ -8,9 +8,14 @@ using System.Threading.Tasks;
 namespace IdeaCenterPOM.Tests
 {
 	[TestFixture("chrome")]
+	[TestFixture("firefox")]
+	[TestFixture("edge")]
 	public class DeleteIdeaTests : BaseTest
 	{
-		public DeleteIdeaTests(string browserType) : base(browserType) { }
+		public DeleteIdeaTests(string browserType) : base(browserType)
+		{
+
+		}
 
 		[SetUp]
 		public void DeleteIdea_SetUp()
@@ -23,12 +28,15 @@ namespace IdeaCenterPOM.Tests
 		public void Test_DeleteIdea_AndVerifyNoIdeasMessageIsdDisplayed()
 		{
 			_createIdeaPage.OpenPage();
-			_createIdeaPage.CreateIdea("testIdea1", "", "testDescription");
 
-			Assert.That(_myIdeasPage.IsPageOpened(), Is.True);
+			string ideaTitle = $"TITLE{GenerateRandomString(5)}";
+			string ideaDescription = $"DESCRIPTION{GenerateRandomString(5)}";
+			_createIdeaPage.CreateIdea(ideaTitle, "", ideaDescription);
+
+			Assert.IsTrue(_myIdeasPage.IsPageOpened());
 			_myIdeasPage.DeleteButton.Click();
 
-			Assert.That(_driver.FindElement(By.XPath("//div[@class='row text-center']/span")).Text, Is.EqualTo("No Ideas yet!"));
+			Assert.That(_myIdeasPage.NoIdeasMessage.Text.Trim(), Is.EqualTo("No Ideas yet!"));
 		}
 	}
 }

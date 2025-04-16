@@ -17,15 +17,25 @@ namespace IdeaCenterPOM.Tests
 	public class BaseTest
 	{
 		protected IWebDriver _driver;
+
 		protected HomePage _homePage;
+
 		protected LoginPage _loginPage;
+
 		protected CreateIdeaPage _createIdeaPage;
+
 		protected MyIdeasPage _myIdeasPage;
+
 		protected EditIdeaPage _editIdeaPage;
+
 		protected ViewIdeaPage _viewIdeaPage;
+
 		protected EditProfilePage _editProfilePage;
+
 		protected MyProfilePage _myProfilePage;
+
 		protected RegisterPage _registerPage;
+
 		private string browserType;
 
 		public BaseTest(string browserType)
@@ -36,10 +46,11 @@ namespace IdeaCenterPOM.Tests
 		[OneTimeSetUp]
 		public void Base_OneTimeSetUp()
 		{
-			var options = GetOptions(browserType);
+			//var options = GetOptions(browserType);
 
 			//java -jar selenium-server-4.28.1.jar standalone
-			_driver = new RemoteWebDriver(new Uri("http://localhost:4444"), options);
+			//_driver = new RemoteWebDriver(new Uri("http://localhost:4444"), options);
+			_driver = GetWebDriver(browserType);
 			_driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
 			_loginPage = new LoginPage(_driver);
@@ -67,33 +78,62 @@ namespace IdeaCenterPOM.Tests
 				.Select(s => s[rnd.Next(s.Length)]).ToArray());
 		}
 
-		private DriverOptions GetOptions(string browserType)
+		//private DriverOptions GetOptions(string browserType)
+		//{
+		//	if (browserType == "chrome")
+		//	{
+		//		ChromeOptions chromeOptions = new ChromeOptions();
+		//		chromeOptions.AddUserProfilePreference("profile.password_manager_enabled", false);
+		//		chromeOptions.AddArgument("--disable-search-engine-choice-screen");
+		//		chromeOptions.AddArgument("--start-maximized");
+		//		chromeOptions.AddArgument("--disable-infobars");
+		//		chromeOptions.AddArgument("--disable-popup-blocking");
+		//		chromeOptions.AddArgument("--disable-gpu");
+
+		//		return chromeOptions;
+		//	} 
+		//	else if (browserType == "firefox")
+		//	{
+		//		FirefoxOptions firefoxOptions = new FirefoxOptions();
+		//		firefoxOptions.AddArgument("--kiosk");
+
+		//		return firefoxOptions;
+		//	}
+		//	else
+		//	{
+		//		EdgeOptions edgeOptions = new EdgeOptions();
+		//		edgeOptions.AddArgument("--start-maximized");
+
+		//		return edgeOptions;
+		//	}
+		//}
+
+		private IWebDriver GetWebDriver(string browser)
 		{
-			if (browserType == "chrome")
+			switch (browser.ToLower())
 			{
-				ChromeOptions chromeOptions = new ChromeOptions();
-				chromeOptions.AddUserProfilePreference("profile.password_manager_enabled", false);
-				chromeOptions.AddArgument("--disable-search-engine-choice-screen");
-				chromeOptions.AddArgument("--start-maximized");
-				chromeOptions.AddArgument("--disable-infobars");
-				chromeOptions.AddArgument("--disable-popup-blocking");
-				chromeOptions.AddArgument("--disable-gpu");
+				case "chrome":
+					var chromeOptions = new ChromeOptions();
+					chromeOptions.AddUserProfilePreference("profile.password_manager_enabled", false);
+					chromeOptions.AddArgument("--disable-search-engine-choice-screen");
+					chromeOptions.AddArgument("--start-maximized");
+					chromeOptions.AddArgument("--disable-infobars");
+					chromeOptions.AddArgument("--disable-popup-blocking");
+					chromeOptions.AddArgument("--disable-gpu");
+					return new ChromeDriver(chromeOptions);
 
-				return chromeOptions;
-			} 
-			else if (browserType == "firefox")
-			{
-				FirefoxOptions firefoxOptions = new FirefoxOptions();
-				firefoxOptions.AddArgument("--kiosk");
-				
-				return firefoxOptions;
-			}
-			else
-			{
-				EdgeOptions edgeOptions = new EdgeOptions();
-				edgeOptions.AddArgument("--start-maximized");
+				case "firefox":
+					var firefoxOptions = new FirefoxOptions();
+					firefoxOptions.AddArgument("--kiosk");
+					return new FirefoxDriver(firefoxOptions);
 
-				return edgeOptions;
+				case "edge":
+					var edgeOptions = new EdgeOptions();
+					edgeOptions.AddArgument("--start-maximized");
+					return new EdgeDriver(edgeOptions);
+
+				default:
+					throw new ArgumentException($"Unsupported browse: {browser}");
 			}
 		}
 	}

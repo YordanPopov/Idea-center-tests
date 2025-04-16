@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 namespace IdeaCenterPOM.Tests
 {
 	[TestFixture("chrome")]
-	//[TestFixture("firefox")]
-	//[TestFixture("edge")]
+	[TestFixture("firefox")]
+	[TestFixture("edge")]
 	public class EditProfileTests : BaseTest
 	{
 		public EditProfileTests(string browserType) : base(browserType)
@@ -32,8 +32,6 @@ namespace IdeaCenterPOM.Tests
 		[Test]
 		public void Test_EditProfileWithEmptyFields()
 		{		
-			Assert.That(_editProfilePage.IsPageOpened(), Is.True);
-
 			_editProfilePage.EditProfile("", "", "", "", "");
 			Assert.That(_myProfilePage.IsPageOpened(), Is.True);
 

@@ -14,11 +14,17 @@ namespace IdeaCenterPOM.Pages
 		public override string PageUrl => base.PageUrl + "/Profile/Edit";
 
 		public IWebElement ProfilePictureField => _driver.FindElement(By.Name("ProfilePicture"));
+
 		public IWebElement FirstNameField => _driver.FindElement(By.Name("FirstName"));
+
 		public IWebElement LastNameField => _driver.FindElement(By.Name("LastName"));
+
 		public IWebElement CityField => _driver.FindElement(By.Name("City"));
+
 		public IWebElement DescriptionField => _driver.FindElement(By.Name("About"));
+
 		public IWebElement DoneButton => _driver.FindElement(By.XPath("//button[@type='submit']"));
+
 
 
 		public void EditProfile(string profilPic, string fName, string lName, string city, string desc)
@@ -53,8 +59,9 @@ namespace IdeaCenterPOM.Pages
 				DescriptionField.SendKeys(desc);
 			}
 
-			IJavaScriptExecutor js = (IJavaScriptExecutor)_driver;
-			js.ExecuteScript("arguments[0].click();", DoneButton);
+			actions.MoveToElement(DoneButton)
+				.Click()
+				.Perform();
 		}
 	}
 }
