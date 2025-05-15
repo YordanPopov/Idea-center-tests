@@ -10,10 +10,10 @@ export class HomePage {
     }
 
     async clickSignUp() {
-        await this.clickSignUp.click();
+        await this.signUpBtn.click();
     }
 
     async clickSignIn() {
-        await this.clickSignIn.click();
+        await this.signInBtn.click();
     }
 }
