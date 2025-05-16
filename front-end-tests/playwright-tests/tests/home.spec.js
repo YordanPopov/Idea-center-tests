@@ -54,4 +54,28 @@ test.describe('Logged-in user sees appropriate Home Page', async () => {
         await expect(loginBtn).toHaveCount(0);
         await expect(signUpBtn).toHaveCount(0);
     });
+
+    test('Verify that logged-in user sees Navbar links.', async ({ page }) => {
+        const myPRofileLink = page.locator('//a[@class="nav-link" and @href="/Profile"]');
+        const myIdeasLink = page.locator('//a[@class="nav-link" and @href="/Ideas/MyIdeas"]');
+        const createIdeaLink = page.locator('//a[@class="nav-link" and @href="/Ideas/Create"]');
+        const logoutBtn = page.locator('//a[@type="button" and  @href="/Users/Logout"]');
+
+        await expect(myPRofileLink).toBeVisible();
+        await expect(myIdeasLink).toBeVisible();
+        await expect(createIdeaLink).toBeVisible();
+        await expect(logoutBtn).toBeVisible();
+    });
+
+    test('Verify that logged-in user sees carousel with 3 slides.', async ({ page }) => {
+        const carouselSlides = page.locator('.carousel-item');
+
+        await expect(carouselSlides).toHaveCount(3);
+    });
+
+    test('Verify that logged-in user sees welcome message.', async({page})=> {
+        const welcomeMessage = page.locator('//div[@class="carousel-item active"]//h5');
+
+        await expect(welcomeMessage).toContainText('Wellcome to Idea Center, testUser_123!');
+    });
 });
