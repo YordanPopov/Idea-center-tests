@@ -10,6 +10,10 @@ export class SignUpPage {
         this.registerBtn = page.locator('//button[@type="submit"]');
     }
 
+    async goto() {
+        await this.page.goto('http://softuni-qa-loadbalancer-2137572849.eu-north-1.elb.amazonaws.com:83/Users/Register');
+    }
+
     async register({ username, email, password }) {
         await this.username.fill(username);
         await this.email.fill(email);
