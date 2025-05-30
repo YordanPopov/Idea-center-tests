@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { SignUpPage } from '../pages/SignUpPage.js';
 import { HomePage } from '../pages/HomePage.js';
-import { getRandomUser, unregisteredUser } from '../utils/testData.js'
+import { existingUser, getRandomUser, unregisteredUser } from '../utils/testData.js'
 
 
 test.describe('Successful user registration', () => {
@@ -123,7 +123,7 @@ test.describe('Failed user registration', async () => {
         expect(rePassErrMsg).toBe('The repeat password is required!');
     });
 
-    test('A user cannot register with mismatched repeat password field.', async ({ page }) => {
+    test('A user cannot register with mismatched password fields.', async ({ page }) => {
         const signUpPage = new SignUpPage(page);
 
         await signUpPage.goto();
@@ -137,5 +137,39 @@ test.describe('Failed user registration', async () => {
         await expect(page).toHaveURL(/.*\/Users\/Register/);
         const rePassErrMsg = await page.locator('//span[@data-valmsg-for="RePassword"]').textContent();
         expect(rePassErrMsg).toBe('Passwords don\'t match.');
+    });
+
+    test('A user cannot register with already taken username.', async ({ page }) => {
+        const signUpPage = new SignUpPage(page);
+        const existingUsername = 'testUser_123';
+
+        await signUpPage.goto();
+        await signUpPage.username.fill(existingUsername);
+        await signUpPage.email.fill(unregisteredUser.email);
+        await signUpPage.password.fill(unregisteredUser.password);
+        await signUpPage.rePassword.fill(unregisteredUser.password);
+        await signUpPage.agreement.click();
+        await signUpPage.registerBtn.click();
+
+        await expect(page).toHaveURL(/.*\/Users\/Register/);
+
+        const usernameErrMsg = await page.locator('//div[@class="text-danger validation-summary-errors"]/ul/li').textContent();
+        expect(usernameErrMsg).toBe(`Username '${existingUsername}' is already taken.`);
+    });
+
+    test('A user cannot register with already taken email.', async ({ page }) => {
+        const signUpPage = new SignUpPage(page);
+
+        await signUpPage.goto();
+        await signUpPage.username.fill('newTestUser123');
+        await signUpPage.email.fill(existingUser.email);
+        await signUpPage.password.fill(unregisteredUser.password);
+        await signUpPage.rePassword.fill(unregisteredUser.password);
+        await signUpPage.agreement.click();
+        await signUpPage.registerBtn.click();
+
+        await expect(page).toHaveURL(/.*\/Users\/Register/);
+        const emailErrMsg = await page.locator('//div[@class="text-danger validation-summary-errors"]/ul/li').textContent();
+        expect(emailErrMsg).toBe('Email already taken!');
     });
 });
